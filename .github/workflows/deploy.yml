@@ -23,7 +23,7 @@ jobs:
         ssh -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
           cd ~/ml_pipeline_gcp
           git pull origin main
-          # Add your deployment steps here, e.g.:
-          # systemctl restart your-flask-app
+          pkill -f "python3 app/main.py" || true
+          nohup python3 app/main.py > flask.log 2>&1 &
         EOF
 
