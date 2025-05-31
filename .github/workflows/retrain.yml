@@ -34,7 +34,7 @@ jobs:
 
       - name: Commit and push updated model
         run: |
-          git add path/to/your/model.pkg
+          git add app/model.pkg
           git commit -m "Retrained model updated by GitHub Actions" || echo "No changes to commit"
           git push origin main
         env:
