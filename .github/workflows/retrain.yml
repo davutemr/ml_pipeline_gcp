@@ -2,8 +2,8 @@ name: Retraining Job
 
 on:
   schedule:
-    - cron: '0 3 * * 0' # every Sunday at 3 AM UTC
-  workflow_dispatch:
+    - cron: '0 3 * * 0'  # every Sunday at 3 AM UTC
+  workflow_dispatch:  
 
 jobs:
   retrain:
@@ -26,17 +26,4 @@ jobs:
       - name: Retrain model
         run: |
           python model/train.py
-
-      - name: Configure Git for commit
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-      - name: Commit and push updated model
-        run: |
-          git add app/model.pkg
-          git commit -m "Retrained model updated by GitHub Actions" || echo "No changes to commit"
-          git push origin dev
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
