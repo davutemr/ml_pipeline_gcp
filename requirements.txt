@@ -1,4 +1,6 @@
+pytest
 flask
 scikit-learn
 pandas
-joblib
+pickle
+os
