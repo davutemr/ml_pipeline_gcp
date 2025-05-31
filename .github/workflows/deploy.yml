@@ -3,28 +3,27 @@ name: Deploy to GCP VM
 on:
   push:
     branches:
-      - main  
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repository
+    - name: Checkout repo
       uses: actions/checkout@v3
 
     - name: Set up SSH key and agent
-      uses: webfactory/ssh-agent@v0.8.1
+      uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.GITHUB_ACTIONS_KEY }}
 
-    - name: Deploy to GCP VM
+    - name: Deploy to VM via SSH
       run: |
         ssh -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
           cd ~/ml_pipeline_gcp
           git pull origin main
-          pip3 install -r requirements.txt
-          pkill -f app.py || true
-          nohup python3 app.py > flask.log 2>&1 &
+          # Add your deployment steps here, e.g.:
+          # systemctl restart your-flask-app
         EOF
 
