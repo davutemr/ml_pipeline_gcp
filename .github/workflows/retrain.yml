@@ -36,7 +36,7 @@ jobs:
         run: |
           git add app/model.pkg
           git commit -m "Retrained model updated by GitHub Actions" || echo "No changes to commit"
-          git push origin main
+          git push origin dev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
