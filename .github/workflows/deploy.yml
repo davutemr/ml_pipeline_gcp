@@ -1,0 +1,30 @@
+name: Deploy to GCP VM
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment only when changes are pushed to main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up SSH key and agent
+      uses: webfactory/ssh-agent@v0.8.1
+      with:
+        ssh-private-key: ${{ secrets.GITHUB_ACTIONS_KEY }}
+
+    - name: Deploy to GCP VM
+      run: |
+        ssh -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
+          cd ~/ml_pipeline_gcp
+          git pull origin main
+          pip3 install -r requirements.txt
+          pkill -f app.py || true
+          nohup python3 app.py > flask.log 2>&1 &
+        EOF
+
