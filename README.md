@@ -8,9 +8,9 @@ This project uses two main branches:
 - **dev:**  
   Contains ongoing development work. All new features and updates are first pushed to this branch for testing and verification. No deployment is performed from this branch.
 
+
 ## Workflow
 
 1. Development and testing are performed in the **dev** branch.  
 2. After successful testing, changes are merged from **dev** into **main**.  
 3. Changes merged into **main** trigger deployment of the latest code and model to the GCP virtual machine.
-
