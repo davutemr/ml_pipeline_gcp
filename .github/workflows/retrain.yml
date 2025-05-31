@@ -3,7 +3,11 @@ name: Retraining Job
 on:
   schedule:
     - cron: '0 3 * * 0'  # every Sunday at 3 AM UTC
+<<<<<<< HEAD
   workflow_dispatch:    
+=======
+  workflow_dispatch:  
+>>>>>>> dev
 
 jobs:
   retrain:
