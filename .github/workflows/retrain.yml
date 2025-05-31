@@ -2,12 +2,8 @@ name: Retraining Job
 
 on:
   schedule:
-    - cron: '0 3 * * 0'  # every Sunday at 3 AM UTC
-<<<<<<< HEAD
-  workflow_dispatch:    
-=======
+    - cron: '0 3 * * 0'  #  every Sunday at 3 AM UTC
   workflow_dispatch:  
->>>>>>> dev
 
 jobs:
   retrain:
@@ -30,4 +26,3 @@ jobs:
       - name: Retrain model
         run: |
           python model/train.py
-
