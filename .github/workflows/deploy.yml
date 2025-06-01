@@ -15,7 +15,7 @@ jobs:
 
     - name: Deploy to VM via SSH
       run: |
-        echo "$SSH_PRIVATE_KEY" > key.pem
+        echo "$GCP_SSH_PRIVATE_KEY" > key.pem
         chmod 600 key.pem
         ssh -i key.pem -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
           cd ~/ml_pipeline_gcp
@@ -24,5 +24,5 @@ jobs:
           nohup python3 app/main.py > flask.log 2>&1 &
         EOF
       env:
-        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        GCP_SSH_PRIVATE_KEY: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
 
