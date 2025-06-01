@@ -13,16 +13,17 @@ jobs:
     - name: Checkout repo
       uses: actions/checkout@v3
 
+    - name: Set up SSH agent and add key
+      uses: webfactory/ssh-agent@v0.7.0
+      with:
+        ssh-private-key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+
     - name: Deploy to VM via SSH
       run: |
-        echo "$GCP_SSH_PRIVATE_KEY" > key.pem
-        chmod 600 key.pem
-        ssh -i key.pem -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
+        ssh -o StrictHostKeyChecking=no dvt_mr_zkn@130.211.73.32 << 'EOF'
           cd ~/ml_pipeline_gcp
           git pull origin main
           pkill -f "python3 app/main.py" || true
           nohup python3 app/main.py > flask.log 2>&1 &
         EOF
-      env:
-        GCP_SSH_PRIVATE_KEY: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
 
